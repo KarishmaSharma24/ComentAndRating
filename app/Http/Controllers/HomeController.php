@@ -24,6 +24,7 @@ class HomeController extends Controller
         $books = Book::with(['rating' => function ($query) {
             $query->where('user_id', auth()->id());
         }])->get();
+        // dd($books);
         return view('home',compact('books'));
     }
 

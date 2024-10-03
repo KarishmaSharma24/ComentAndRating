@@ -3,9 +3,9 @@
 namespace App\Models;
 
 use App\Models\Comment;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
 class Book extends Model
 {
     use HasFactory;
@@ -21,6 +21,11 @@ class Book extends Model
         return $this->hasMany(Rating::class);
     }
 
-   
 
+    public function getUserBookRatingAttribute()
+    {
+        $data = Rating::where('user_id',Auth::user()->id)->where('book_id',$this->id)->first();
+        return $data->rating??0;
+        
+    }
 }

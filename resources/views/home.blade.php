@@ -163,13 +163,12 @@
                                         {{ $book->title }}
                                     </td>
                                     <td>{{ $book->writer }}</td>
-                                    <td>{{ $book->description }}</td>
+                                    <td>{{ $book->description }} </td>
                                     <td>
                                         <div class="rate">
                                             @for ($i = 5; $i >= 1; $i--)
-                                            <input type="radio" id="star{{ $i }}-{{ $book->id }}" class="rateClass" name="rating" data-id="{{ $book->id }}" value="{{ $i }}"
-                                                @if($book->rating->count() > 0 && $book->rating->firstWhere('user_id', auth()->id())->rating == $i) checked @endif />
-                                            <label for="star{{ $i }}-{{ $book->id }}" title="text">{{ $i }} star{{ $i > 1 ? 's' : '' }}</label>
+                                            <input type="radio" id="star{{ $i }}-{{ $book->id }}" class="rateClass" name="rating" data-id="{{ $book->id }}" value="{{ $i }}" {{$book->user_book_rating>=$i?"checked":""}}/>
+                                            <label for="star{{ $i }}-{{ $book->id }}" title="text" @if($book->user_book_rating>=$i) style="color:#ffc700" @endif>{{ $i }} star{{ $i > 1 ? 's' : '' }} </label>
                                             @endfor
                                         </div>
                                     </td>
@@ -225,7 +224,7 @@
                     } else {
                         alert('Rating nto updated');
                     }
-                    // window.location.reload();
+                    window.location.reload();
 
                 },
                 error: function(xhr) {
