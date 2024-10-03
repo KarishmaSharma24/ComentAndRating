@@ -1,122 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<style>
-    .rate {
-        float: left;
-        height: 46px;
-        padding: 0 10px;
-    }
-
-    .rate:not(:checked)>input {
-        position: absolute;
-        display: none;
-    }
-
-    .rate:not(:checked)>label {
-        float: right;
-        width: 1em;
-        overflow: hidden;
-        white-space: nowrap;
-        cursor: pointer;
-        font-size: 30px;
-        color: #ccc;
-    }
-
-    .rated:not(:checked)>label {
-        float: right;
-        width: 1em;
-        overflow: hidden;
-        white-space: nowrap;
-        cursor: pointer;
-        font-size: 30px;
-        color: #ccc;
-    }
-
-    .rate:not(:checked)>label:before {
-        content: '★ ';
-    }
-
-    .rate>input:checked~label {
-        color: #ffc700;
-    }
-
-    .rate:not(:checked)>label:hover,
-    .rate:not(:checked)>label:hover~label {
-        color: #deb217;
-    }
-
-    .rate>input:checked+label:hover,
-    .rate>input:checked+label:hover~label,
-    .rate>input:checked~label:hover,
-    .rate>input:checked~label:hover~label,
-    .rate>label:hover~input:checked~label {
-        color: #c59b08;
-    }
-
-    .star-rating-complete {
-        color: #c59b08;
-    }
-
-    .rating-container .form-control:hover,
-    .rating-container .form-control:focus {
-        background: #fff;
-        border: 1px solid #ced4da;
-    }
-
-    .rating-container textarea:focus,
-    .rating-container input:focus {
-        color: #000;
-    }
-
-    .rated {
-        float: left;
-        height: 46px;
-        padding: 0 10px;
-    }
-
-    .rated:not(:checked)>input {
-        position: absolute;
-        display: none;
-    }
-
-    .rated:not(:checked)>label {
-        float: right;
-        width: 1em;
-        overflow: hidden;
-        white-space: nowrap;
-        cursor: pointer;
-        font-size: 30px;
-        color: #ffc700;
-    }
-
-    .rated:not(:checked)>label:before {
-        content: '★ ';
-    }
-
-    .rated>input:checked~label {
-        color: #ffc700;
-    }
-
-    .rated:not(:checked)>label:hover,
-    .rated:not(:checked)>label:hover~label {
-        color: #deb217;
-    }
-
-    .rated>input:checked+label:hover,
-    .rated>input:checked+label:hover~label,
-    .rated>input:checked~label:hover,
-    .rated>input:checked~label:hover~label,
-    .rated>label:hover~input:checked~label {
-        color: #c59b08;
-    }
-
-    table#datatable th:nth-child(5),
-    table#datatable td:nth-child(5) {
-        width: 250px;
-        /* Adjust rating column width */
-    }
-</style>
+<link rel="stylesheet" href="{{ asset('custom_files/cs/home.css') }}">
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
@@ -137,10 +22,6 @@
                 </div>
 
                 <div class="card-body">
-
-
-                    <!-- {{ __('You are logged in!') }} -->
-
                     <div class="row">
                         <table class="table table-hover" id="datatable">
                             <thead>
@@ -203,38 +84,7 @@
                 }
             }
         });
-
-        $('input.rateClass').on('click', function() {
-            var rating = $(this).val();
-            var bookId = $(this).data('id');
-            console.log("bookId" + bookId);
-            // console.log();
-
-            $.ajax({
-                url: "{{ route('rating.store') }}",
-                type: 'POST',
-                data: {
-                    rating: rating,
-                    book_id: bookId
-                },
-                success: function(response) {
-                    console.log(response);
-                    if (response.status == 200) {
-                        alert('Rating submitted: ' + rating);
-                    } else {
-                        alert('Rating nto updated');
-                    }
-                    window.location.reload();
-
-                },
-                error: function(xhr) {
-
-                    alert('An error occurred while submitting the rating.');
-                }
-            });
-        });
-
     });
 </script>
-
+<script src="{{ asset('custom_files/js/home.js')}}"></script>
 @endsection()
