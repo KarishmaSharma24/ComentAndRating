@@ -25,6 +25,9 @@
             </div> -->
             <div class="col-md-12">
                 <textarea class="form-control" placeholder="Leave a comment here" name="description" id="description" style="height: 100px; resize: none;"></textarea>
+                @error('description')
+                <span class="text-danger">{{ $message }}</span>
+                @enderror
             </div>
             <div class="footer mt-2">
                 <button type="submit" class="btn btn-primary" id="submitCommnet">Add</button>
